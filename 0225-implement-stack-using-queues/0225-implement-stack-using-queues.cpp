@@ -1,32 +1,36 @@
 class MyStack {
 public:
-    int st,en;
-    int arr[101];
-    
+    queue<int>q;
+    int size =0;
     MyStack() {
-        st = 0;
-        en =-1;
+        
     }
     
     void push(int x) {
-      arr[++en] = x;
+        
+       q.push(x);
+        for(int i=0; i<size; i++)
+        {
+            int val = q.front();
+            q.push(val);
+            q.pop();
+        }
+        size++;
     }
     
     int pop() {
-        return arr[en--];
+        int val =  q.front();
+        size--;
+        q.pop();
+        return val;
     }
     
     int top() {
-        return arr[en];
+        return q.front();
     }
     
     bool empty() {
-        if(en == -1)
-        {
-            return true;
-        }
-         return false;
-        
+     return (q.empty());   
     }
 };
 
