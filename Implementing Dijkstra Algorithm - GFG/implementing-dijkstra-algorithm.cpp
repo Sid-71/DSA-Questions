@@ -13,7 +13,7 @@ class Solution
     {
     // 0 - > 1,1  2 6
     
-    vector<int>dist(n+1,1e12);
+    vector<int>dist(n+1,INT_MAX);
     dist[so] = 0;
     set<pair<int,int>>s;
     s.insert({0,so});
