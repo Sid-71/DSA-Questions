@@ -4,38 +4,46 @@ using namespace std;
 
 // } Driver Code Ends
 
-
 class Solution
 {
 	public:
 	//Function to find the shortest distance of all the vertices
     //from the source vertex S.
-    vector <int> dijkstra(int n, vector<vector<int>> adj[], int s)
+    vector <int> dijkstra(int n, vector<vector<int>> adj[], int so)
     {
-       vector<int>dist(n+1,1e10);
-       set<pair<int,int>>st;
-       st.insert({0,s});
-       dist[s] = 0;
-       while(st.size() > 0)
-       {
-           auto x = *(st.begin());
-           auto node = x.second;
-           st.erase(st.begin());
-           auto dis = x.first;
-           for(auto it : adj[node])
-           {
-               if(dis + it[1] < dist[it[0]])
-               {
-                   st.erase({dist[it[0]] , it[0]});
-                   int d = dis + it[1];
-                   dist[it[0]] = d;
-                   st.insert({d,it[0]});
-               }
-           }
-           
-       }
-       return dist;
-       
+    // 0 - > 1,1  2 6
+    
+    vector<int>dist(n+1,1e12);
+    dist[so] = 0;
+    set<pair<int,int>>s;
+    s.insert({0,so});
+    
+    while(!s.empty())
+    {
+    auto to = *(s.begin());
+    s.erase(s.begin());
+    auto node = to.second;
+    auto di = to.first;
+    for(auto it : adj[node])
+    {
+        if(di + it[1] < dist[it[0]])
+        {
+            int d = di+it[1];
+            s.erase({dist[it[0]],it[0]});
+            dist[it[0]] = d;
+            s.insert({dist[it[0]],it[0]});
+        }
+    }
+    }
+    
+        
+        return dist;
+        
+    
+    
+    
+
+    
     }
 };
 
