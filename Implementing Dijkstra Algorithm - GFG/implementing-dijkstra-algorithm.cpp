@@ -12,7 +12,7 @@ class Solution
     //from the source vertex S.
     vector <int> dijkstra(int n, vector<vector<int>> adj[], int s)
     {
-       vector<int>dist(n+1,INT_MAX);
+       vector<int>dist(n+1,1e10);
        set<pair<int,int>>st;
        st.insert({0,s});
        dist[s] = 0;
