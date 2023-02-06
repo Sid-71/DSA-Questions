@@ -21,33 +21,26 @@ public:
 class Solution {
 public:
     vector<vector<int>> levelOrder(Node* root) {
-        vector<vector<int>>res;
-        if(root == NULL)
-        {
-         return res;   
-        }
+        if(root == NULL)return{};
+        vector<vector<int>>ans;
         queue<Node*>q;
-        
         q.push(root);
-        
-     
-        while(!q.empty())
+        while(q.size() > 0)
         {
+            vector<int>curLevel;
             int val = q.size();
-            vector<int>ans;
             while(val--)
             {
-                auto to = q.front();
-                ans.push_back(to->val);
+                auto cur = q.front();
                 q.pop();
-                auto temp = to->children;
-                for(auto x : temp)
-                {
-                    q.push(x);
-                }
+                curLevel.push_back(cur->val);
+               for(Node* child : cur->children)
+               {
+                   q.push(child);
+               }
             }
-            res.push_back(ans);
+            ans.push_back(curLevel);
         }
-        return res;
+        return ans;
     }
 };
