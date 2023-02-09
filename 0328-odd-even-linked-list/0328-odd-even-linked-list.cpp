@@ -11,35 +11,45 @@
 class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
-        
-       if(head == NULL or head->next == NULL) 
-       {
-           return head;
-       }
-       ListNode*first = head;
-        ListNode*second = head->next;
-        ListNode*shead = second;
-        int turn =0;
-        while(second != NULL and second->next != NULL)
+     ListNode*oh = NULL;
+      ListNode*eh = NULL;
+      ListNode*nho = NULL;
+      ListNode*nhe = NULL;
+        if(head == NULL or head->next == NULL)return head;
+        int ind = 1;
+        for(ListNode*curr = head; curr!= NULL; curr=curr->next)
         {
-            if(turn == 0)
+          int data = ind;
+            if(data%2 != 0)
             {
-                first->next = second->next;
-            first = second->next;
+                // first odd 
+                if(oh == NULL)
+                {
+                    oh = curr;
+                    nho = curr;
+                }
+                else {
+                    oh->next = curr;
+                    oh = curr;
+                }
             }
             else {
-                second->next = first->next;
-                second = first->next;
+                // first even
+                if(eh == NULL)
+                {
+                    eh = curr;
+                    nhe = curr;
+                }
+                else {
+                    eh->next = curr;
+                    eh = curr;
+                }
             }
-            turn = 1-turn;
-                      
-        }
-         if(second != NULL and second->next != NULL)
-         {
-             second->next = nullptr;
+            ind++;
          }
-        
-        first->next  = shead;
-        return head;
+        eh->next = NULL;
+         oh->next = nhe;
+         return nho;
+
     }
 };
