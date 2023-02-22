@@ -8,24 +8,23 @@ class Solution{
 	public:
 	int minSteps(int n) 
 	{ 
-	    queue<int>q;
-	    q.push(n);
-	    int ans = 0;
-	    while(q.size())
-	    {
-	        int v = q.size();
-	        while(v--)
-	        {
-	            auto u = q.front();
-	            q.pop();
-	            if(u == 1)return ans;
-	            if(u%3 == 0)q.push(u/3);
-	            if(u%2 == 0)q.push(u/2);
-	            if(u>=2)q.push(u-1);
-	        }
-	        ans++;
-	    }
-	    return ans;
+	  int dp[n+1];
+	  dp[1] =0;
+	  dp[2] =1;
+	  dp[3] = 1;
+	  for(int num=4; num<=n; num++)
+	  {
+	     dp[num] = 1 + dp[num-1];
+	     if(num%2 == 0)
+	     {
+	         dp[num] = min(dp[num],1 + dp[num/2]);
+	     }
+	      if(num%3 == 0)
+	     {
+	         dp[num] = min(dp[num],1 + dp[num/3]);
+	     }
+	  }
+	  return dp[n];
 	} 
 };
 
