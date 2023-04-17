@@ -1,45 +1,30 @@
 class Solution {
 public:
     
-    bool check(int capacity,vector<int>&piles,int hour)
-    {
-        long long can_eat = 0;
-        for(int i=0; i<piles.size(); i++)
-        {
-            long long time  = (long long)piles[i]/capacity;
-            if(piles[i]%capacity!= 0)
-            {
-                time+=1;
-            }
-            can_eat+=time;
-        }
-        // if(can_eat <= hour){
-        //     return true;
-        // }
-        // return false;
-        return (can_eat<=hour);
-        
-    }
-    
-    
+   
     
     int minEatingSpeed(vector<int>& piles, int h) {
-       long long low = 1;
-       long long high = 1e15;
-        int possible_answer = -1;
-       while(low <= high)
-       {
-           int mid = (low + high) /2;
-           if(check(mid,piles,h) == true)
-           {
-               possible_answer = mid;
-               high = mid-1;
-           }
-           else {
-               low = mid+1;
-           }
-       }
-        return possible_answer;
+        int l=1,r=*max_element(piles.begin(),piles.end()),res=r;
+
+        while(l<=r){
+            int mid = (l+r)/2;
+            long long time = 0;
+            for(auto x:piles){
+               long long  val  = x/mid;
+                if(x%mid != 0)
+                {
+                    val++;
+                }
+                time += val;
+            }
+            if(time<=h){
+                res=mid;
+                r=mid-1;
+            }else{
+                l=mid+1;
+            } 
+        }
+        return res;
+        
     }
 };
-
