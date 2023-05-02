@@ -10,26 +10,38 @@
  */
 class Solution {
 public:
-    
-    
-    ListNode* solve(ListNode*a,ListNode*b)
-    {
-        if(a == NULL)return b;
-        if(b == NULL)return a;
-        
-        if(a->val < b->val)
-        {
-            a->next = solve(a->next,b);
-            return a;
-        } 
-       b->next = solve(a,b->next);
-       return b;
-        
-    }
-    
     ListNode* mergeTwoLists(ListNode* a, ListNode* b) {
+        if(!a and !b)return NULL;
+        if(!a)return b;
+        if(!b)return a;
         
+        ListNode*aa= a;
+        ListNode*bb = b;
+        ListNode*curr = new ListNode(-1);
+        ListNode*mh = curr;
         
-        return solve(a,b);
+        while(aa and bb)
+        {
+            if(aa->val < bb->val)
+            {
+                curr->next = aa;
+                curr = curr->next;
+                aa = aa->next;
+            }
+            else {
+                curr->next = bb;
+                curr = curr->next;
+                bb = bb->next;
+            }
+        }
+        if(aa)
+        {
+            curr->next = aa;
+        }
+        if(bb)
+        {
+            curr->next = bb;
+        }
+        return mh->next;
     }
 };
