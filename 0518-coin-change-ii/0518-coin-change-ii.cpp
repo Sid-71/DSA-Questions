@@ -24,7 +24,7 @@ public:
    
     for(int i=1;i<=n; i++)
     {
-        for(int sum =0; sum <= amount; sum ++)
+        for(int sum =1; sum <= amount; sum ++)
         {
                 int nhiLo = dp[i-1][sum];
                 int take =0; 
