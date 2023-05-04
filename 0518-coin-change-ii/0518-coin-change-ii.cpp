@@ -17,7 +17,7 @@ public:
 //       return solve(coins,amount,n-1);  
     int dp[n+1][5001];
     memset(dp,0,sizeof(dp));
-    for(int i=0; i<n; i++)
+    for(int i=0; i<=n; i++)
     {
         dp[i][0] = 1;
     }
