@@ -1,25 +1,30 @@
 class Solution {
 public:
-    int jump(vector<int>& nums) {
+    int jump(vector<int>& arr) {
         
-      vector<int>dp(nums.size()+1,0);
-      int n = nums.size();
-        dp[0] = 0;
-     for(int i=1; i<n; i++)
-     {
-         dp[i] = 1e9;
-         for(int j=i-1; j>=0; j--)
-         {
-             int kitniDur = i-j;
-             int jumpKitna = nums[j];
-             if(jumpKitna >= kitniDur)
-             {
-                dp[i] = min(dp[i],1 + dp[j]);           
-             }
-         }
-     }
+       int lamba_jump =arr[0] ;
+    int kahatak = arr[0];
+        int n = arr.size();
+         if(n == 1)return 0;
+       if(lamba_jump >= n-1)return 1; 
    
-        return dp[n-1];
+    int jumps =1;
+
+    for(int i=1; i<n; i++)
+    {
+        lamba_jump = max(lamba_jump,i+arr[i]);
+        if(i == kahatak)
+        {
+            jumps++;
+            kahatak = lamba_jump;
+            if(kahatak >= n-1)
+            {
+                return jumps;
+            }
+        }
+    }
+    return jumps;
+        
         
         
     }
