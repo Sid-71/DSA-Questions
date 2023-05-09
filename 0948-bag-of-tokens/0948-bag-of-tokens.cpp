@@ -22,34 +22,33 @@ typedef long long ll;
 class Solution {
 public:
     int bagOfTokensScore(vector<int>& tokens, int power) {
-      if(power == 0)return 0;
-      int n = tokens.size();
-      sort(all(tokens));
-      if(tokens.size() >0  and power < tokens[0])return 0;
-      vi pref(n,0);
-      for(int i=0; i<tokens.size(); i++)
-      {
-          pref[i] = tokens[i];
-          if(i!=0)
-          {
-             pref[i] += pref[i-1];
-          }
-      }
+     sort(all(tokens));
+     int start =0;
+     int end = tokens.size()-1;
+     int score =0;
+     int ans =0;
+     while(start <= end)
+     {
+         if(power >= tokens[start])
+         {
+             score++;
+             ans = max(ans,score);
+             power-=tokens[start];
+             start++;
+         }
+         else if(score>=1) {
+             score--;
+             power+=tokens[end];
+             end--;
+         }
+         else {
+             // yeh woh step hai jaha per aap kuch nhi kar parhe toh while loop me 
+             // atke thodi rehna hai 
+             break;
+         }
+     }
       
-    int maxScore = upper_bound(all(pref),power)-pref.begin();
-    int katna =0;
-    for(int i=n-1; i>=1; i--)
-    {
-        power+=tokens[i];
-        katna++;
-        int ind = upper_bound(all(pref),power)-pref.begin()-1;
-        if(ind >= i)
-        {
-            ind = ind-1;
-        }
-        maxScore = max(maxScore,ind+1-katna);   
-    }
-    return maxScore;
+    return ans;
         
     }
 };
